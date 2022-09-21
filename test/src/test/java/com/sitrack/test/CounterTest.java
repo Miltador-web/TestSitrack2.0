@@ -2,9 +2,7 @@ package com.sitrack.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 
@@ -17,17 +15,14 @@ class CounterTest {
 
 	@Test
 	public void testCounter() throws IOException {
-		BufferedReader log = new BufferedReader(
-	            new InputStreamReader(System.in));
+		@SuppressWarnings("resource")
+		Scanner log = new Scanner(System.in, "utf-8");
 		//Link a busca "https://es.wikipedia.org/wiki/Pirámides_de_Egipto"
-		System.out.println("Qual link deseja buscar?");
-		
-		String link = log.readLine();
+		String link = "https://es.wikipedia.org/wiki/Pirámides_de_Egipto";
 		Conexao lg = new Conexao();
 		Document doc = lg.conexao(link);
 		//Frase a buscar "bloques de piedra"
-		System.out.println("Qual frase deseja busca?");
-		String frase = log.readLine();
+		String frase = "bloques de piedra";
 		Elements text = doc.getElementsMatchingOwnText(frase);
 		CounterFrase contador = new CounterFrase();
 		int total = contador.counter(text);
